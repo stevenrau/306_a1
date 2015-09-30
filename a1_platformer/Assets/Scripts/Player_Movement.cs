@@ -40,9 +40,6 @@ public class Player_Movement : MonoBehaviour {
 
 		//Get user input for left and right movement
 		float move = Input.GetAxis("Horizontal");
-	
-		animation_controller.SetFloat ("speed", Mathf.Abs(move));
-		rigid_body.velocity = new Vector2 (max_speed * move, rigid_body.velocity.y);
 
 		//Flip the player so that he is facing in driection of movement
 		if (facing_right && move < 0) {
@@ -51,7 +48,12 @@ public class Player_Movement : MonoBehaviour {
 		else if (!facing_right && move > 0){
 			flip_character();
 		}
+	
+		//Apply the input movement to the player
+		animation_controller.SetFloat ("speed", Mathf.Abs(move));
+		rigid_body.velocity = new Vector2 (max_speed * move, rigid_body.velocity.y);
 
+		//Perform a jump if requested and player is currently grounded
 		if (perform_jump)
 		{
 			if (grounded)
@@ -65,6 +67,7 @@ public class Player_Movement : MonoBehaviour {
 
 	void flip_character()
 	{
+
 		facing_right = !facing_right;
 		Vector3 cur_scale = transform.localScale;
 		cur_scale.x = cur_scale.x * -1; //Flip the character by negating x scale

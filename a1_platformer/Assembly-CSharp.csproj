@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Death_Zone.cs" />
+     <Compile Include="Assets\Scripts\Disappearing_Object.cs" />
+     <Compile Include="Assets\Scripts\Disappearing_Platform_Grounded_Check.cs" />
      <Compile Include="Assets\Scripts\Ground_Check.cs" />
      <Compile Include="Assets\Scripts\Player_Movement.cs" />
  <Reference Include="UnityEngine.UI">
