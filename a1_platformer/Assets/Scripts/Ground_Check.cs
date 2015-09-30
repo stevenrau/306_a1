@@ -22,6 +22,17 @@ public class Ground_Check : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		player.grounded = false;
+		if(other.gameObject.tag == "Floor")
+		{
+			player.grounded = false;
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if(other.gameObject.tag == "Floor")
+		{
+			player.grounded = true;
+		}
 	}
 }

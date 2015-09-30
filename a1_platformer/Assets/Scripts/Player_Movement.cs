@@ -7,6 +7,7 @@ public class Player_Movement : MonoBehaviour {
 	public float jump_height = 1.0f;
 	public bool grounded;
 
+	private Vector3 spawn_point;
 	private bool perform_jump = false;
 	private bool facing_right = true;
 	private Animator animation_controller;
@@ -17,6 +18,9 @@ public class Player_Movement : MonoBehaviour {
 	{
 		animation_controller = GetComponent<Animator>();
 		rigid_body = GetComponent<Rigidbody2D>();
+
+		//Set the spawn point to be the player's original position
+		spawn_point = gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -50,13 +54,12 @@ public class Player_Movement : MonoBehaviour {
 
 		if (perform_jump)
 		{
-			jump ();
-			perform_jump = false;
-		}
+			if (grounded)
+			{
+				jump ();
+			}
 
-		if (grounded)
-		{
-			animation_controller.SetTrigger ("land");
+			perform_jump = false;
 		}
 	}
 
@@ -72,5 +75,11 @@ public class Player_Movement : MonoBehaviour {
 	{
 		rigid_body.AddForce(new Vector2(0, jump_height), ForceMode2D.Impulse);
 		animation_controller.SetTrigger ("jump");
+	}
+
+	public void respawn()
+	{
+		transform.position = spawn_point;
+		animation_controller.SetBool("grounded", true);
 	}
 }
